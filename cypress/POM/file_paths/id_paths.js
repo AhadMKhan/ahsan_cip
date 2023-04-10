@@ -1,0 +1,1 @@
+export const validation_id_path = 'cypress/fixtures/validation_id/id.json'

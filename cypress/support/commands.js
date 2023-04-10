@@ -1,5 +1,6 @@
 import login_page from "../POM/login_page"
 import home_page from "../POM/home_page"
+import 'cypress-file-upload'
 
 const login_page_obj = new login_page()
 const home_page_obj = new home_page()
@@ -11,3 +12,9 @@ Cypress.Commands.add('login_app', () => {
         login_page_obj.login_btn.click()
     })
 })
+
+Cypress.Commands.add('clear_session_storage', () => {
+    cy.window().then((win) => {
+      win.sessionStorage.clear()
+    })
+  })
