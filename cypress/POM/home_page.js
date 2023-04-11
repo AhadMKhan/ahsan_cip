@@ -26,17 +26,5 @@ class home_page {
     forms_opening_btn (form_id) {
         cy.get('[data-row-key="'+form_id+'"]').click()
     }
-
-    get sys_ops_para_btn () {
-        return cy.get("[class='ant-card-body']").then((main_slider) => {
-            cy.wrap(main_slider).contains('System Operational Parameters Verification')
-        })
-    }
-
-    get inst_calib_ver_btn () {
-        return cy.get("[class='ant-card-body']").then((main_slider) => {
-            cy.wrap(main_slider).contains('Instrument Calibration Verification')
-        })
-    }
 }
 export default home_page

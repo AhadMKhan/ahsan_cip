@@ -6,7 +6,7 @@ class system_specification {
     }
     
     get equip_class_btn () {
-        return cy.get(['data-testid="Radio-Group-equipmentClassification" > :nth-child(1)'])
+        return cy.get('[data-testid="Radio-Group-equipmentClassification"] > :nth-child(1)')
     }
 
     get location () {

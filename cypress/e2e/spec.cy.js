@@ -4,6 +4,7 @@ import validation_id_extractor from "../POM/validation_id_extractor"
 import system_specification from "../POM/validation_forms/system_specification.js"
 import common_forms_loc from "../POM/common_forms_loc.js"
 import system_ops_para from "../POM/system_ops_para.js"
+import inst_calib_ver from "../POM/inst_calib_ver.js"
 
 const login_page_obj = new login_page()
 const home_page_obj = new home_page()
@@ -11,6 +12,7 @@ const validation_id = new validation_id_extractor()
 const sys_spec_obj = new system_specification()
 const com_loc_obj = new common_forms_loc()
 const sys_ops_para_obj = new system_ops_para()
+const inst_calib_ver_obj = new inst_calib_ver()
 
 import {
   validation_id_api
@@ -19,12 +21,11 @@ import {
 import {
   validation_id_path
 } from '../POM/file_paths/id_paths.js'
-import { beforeEach } from "mocha"
 
 describe('Quality Agent Forms', () => {
 
   beforeEach(() => {
-    cy.viewport(1920, 1240)
+    cy.viewport(1240, 1240)
     cy.visit('/')
   })
 
@@ -75,14 +76,14 @@ describe('Quality Agent Forms', () => {
       sys_ops_para_obj.meet_req_1_btn.click()
       sys_ops_para_obj.high_alarm_1.type(sys_ops_data.high_alram)
       sys_ops_para_obj.meet_req_2_btn.click()
-      sys_ops_para_obj.low_alarm_1.type(sys_ops_data.low_alarm)
+      sys_ops_para_obj.low_alarm_1.type(sys_ops_data.low_alram)
       sys_ops_para_obj.meet_req_3_btn.click()
       com_loc_obj.criteria_met_yes_btn.click()
       com_loc_obj.comments.type(sys_ops_data.comments)
       sys_ops_para_obj.build_mon_tab_btn.click()
       sys_ops_para_obj.high_alarm_2.type(sys_ops_data.high_alram)
       sys_ops_para_obj.meet_req_4_btn.click()
-      sys_ops_para_obj.low_alarm_2.type(sys_ops_data.low_alarm)
+      sys_ops_para_obj.low_alarm_2.type(sys_ops_data.low_alram)
       sys_ops_para_obj.meet_req_5_btn.click()      
       com_loc_obj.save_btn.click()
       com_loc_obj.success_msg.should('be.visible')
@@ -93,21 +94,24 @@ describe('Quality Agent Forms', () => {
     cy.login_app()
     cy.fixture('./validation_id/id.json').then((id) => {
       home_page_obj.forms_opening_btn(id.validation_id)
-      home_page_obj.inst_calib_ver_btn.click()
-      cy.get('[data-testid="Select-Field-temperatureIntervalUnit"]').type("Months"+"{enter}")
-      cy.get('[data-testid="Radio-Group-temperatureControllerInstrumentLabelPresentOnUnit"] > :nth-child(1)').click()
-      cy.contains('BMS Probe - Temperature').click()
-      cy.get('[data-testid="Select-Field-bmsTemperatureIntervalUnit"]').type("Months{enter}")
-      cy.get('[data-testid="Radio-Group- bMSProbeTemperatureInstrumentLabelPresentOnUnit"] > :nth-child(1)').click()
-      cy.contains('Other').click()
-      cy.get('[data-testid="Input-Field-otherIdTag"]').type("001")
-      cy.get('[data-testid="Select-Field-otherIntervalUnit"]').type("Months{enter}")
-      cy.get('[data-testid="Input-Field-otherCalibrationInterval"]').type("4")
-      cy.get('[data-testid="Radio-Group-otherInstrumentLabelPresentOnUnit"] > :nth-child(1)').click()
-      cy.get('[data-testid="Radio-Group-yesOrNo"] > :nth-child(1)').click()
-      cy.get('[data-testid="[object Object]comments"]').type("testing")   
-      cy.get('[type="submit"]').click()
-      cy.get('[class="ant-notification-notice ant-notification-notice-success ant-notification-notice-closable"]').should('be.visible')
+    })
+
+    cy.fixture('./inst_calib_ver_data.json').then((inst_calib_ver_data) => {
+      inst_calib_ver_obj.inst_calib_ver_btn.click()
+      inst_calib_ver_obj.temp_int_unit.type(inst_calib_ver_data.interval_unit+"{enter}")
+      inst_calib_ver_obj.temp_inst_yes_btn.click()
+      inst_calib_ver_obj.bms_probe_btn.click()
+      inst_calib_ver_obj.bms_int_unit.type(inst_calib_ver_data.interval_unit+"{enter}")
+      inst_calib_ver_obj.bms_inst_yes_btn.click()
+      inst_calib_ver_obj.others_btn.click()
+      inst_calib_ver_obj.other_id.type(inst_calib_ver_data.others_id)
+      inst_calib_ver_obj.other_int_unit.type(inst_calib_ver_data.interval_unit+"{enter}")
+      inst_calib_ver_obj.other_calib_inter.type(inst_calib_ver_data.other_calibration_interval)
+      inst_calib_ver_obj.other_inst_yes_btn.click()
+      com_loc_obj.criteria_met_yes_btn.click()
+      com_loc_obj.comments.type(inst_calib_ver_data.comments)   
+      com_loc_obj.save_btn.click()
+      com_loc_obj.success_msg.should('be.visible')
     })    
   })
 })

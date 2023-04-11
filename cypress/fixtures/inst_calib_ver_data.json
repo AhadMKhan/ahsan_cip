@@ -1,0 +1,6 @@
+{
+    "interval_unit" : "Months",
+    "others_id" : "001",
+    "other_calibration_interval" : "4",
+    "comments" : "Instrument Calibration Verification automation testing."
+}
