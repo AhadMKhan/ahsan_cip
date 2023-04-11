@@ -7,6 +7,7 @@ import system_ops_para from "../POM/system_ops_para.js"
 import inst_calib_ver from "../POM/inst_calib_ver.js"
 import sys_pre_main from "../POM/validation_forms/system_pre_main"
 import test_equip_mat from "../POM/test_equip_mat"
+import loc_visual_insp from "../POM/validation_forms/loc_visual_insp"
 
 const login_page_obj = new login_page()
 const home_page_obj = new home_page()
@@ -17,6 +18,7 @@ const sys_ops_para_obj = new system_ops_para()
 const inst_calib_ver_obj = new inst_calib_ver()
 const sys_pre_main_obj = new sys_pre_main()
 const test_equip_mat_obj = new test_equip_mat()
+const loc_visual_insp_obj = new loc_visual_insp()
 
 import {
   validation_id_api
@@ -150,6 +152,65 @@ describe('Quality Agent Forms', () => {
       test_equip_mat_obj.select_equip.type(test_equip_mat_data.pharma_sensors+"{enter}")
       com_loc_obj.criteria_met_yes_btn.click()
       com_loc_obj.comments.type(test_equip_mat_data.comments)   
+      com_loc_obj.save_btn.click()
+      com_loc_obj.success_msg.should('be.visible')
+    })    
+  })
+
+  it.only('Fill Location And Visual Inspection form', () => {
+    cy.login_app()
+    cy.fixture('./validation_id/id.json').then((id) => {
+      home_page_obj.forms_opening_btn(id.validation_id)
+    })
+
+    cy.fixture('./test_equip_mat_data.json').then((test_equip_mat_data) => {
+      loc_visual_insp_obj.loc_visual_insp_btn.click()
+      loc_visual_insp_obj.actual_1_no_btn.click()
+      loc_visual_insp_obj.actual_pass_1_btn.click()
+      loc_visual_insp_obj.actual_2_no_btn.click()
+      loc_visual_insp_obj.actual_pass_2_btn.click()
+      loc_visual_insp_obj.actual_3_no_btn.click()
+      loc_visual_insp_obj.actual_pass_3_btn.click()
+      loc_visual_insp_obj.actual_4_no_btn.click()
+      loc_visual_insp_obj.acutal_pass_4_btn.click()
+      com_loc_obj.criteria_met_yes_btn.click()
+      com_loc_obj.comments.type("Location And Visual Inspection automation testing")
+      loc_visual_insp_obj.next_btn.click()
+
+      loc_visual_insp_obj.measure_unit.type("Feet{enter}")
+      loc_visual_insp_obj.manufacture_cubic.type("50")
+      loc_visual_insp_obj.exterior_btn.click()
+      loc_visual_insp_obj.source_user_manual_btn.click()
+      loc_visual_insp_obj.unit_height.type("5")
+      loc_visual_insp_obj.unit_width.type("5")
+      loc_visual_insp_obj.unit_depth.type("5")
+      loc_visual_insp_obj.inter_dimen_yes_btn.click()
+      loc_visual_insp_obj.clear_left.type("4")
+      loc_visual_insp_obj.clear_right.type("4")
+      loc_visual_insp_obj.clear_top.type("4")
+      loc_visual_insp_obj.clear_rear.type("4")
+      loc_visual_insp_obj.spec_user_manual_btn.click()
+      loc_visual_insp_obj.spec_user_man_pass_btn.click()
+      loc_visual_insp_obj.door_open_90_yes_btn.click()
+      loc_visual_insp_obj.door_90_pass_btn.click()
+      loc_visual_insp_obj.next_btn.click()
+
+      loc_visual_insp_obj.ambient_temp_sor.type("Site SOP{enter}")
+      loc_visual_insp_obj.ambient_temp_spec.type("4")
+      loc_visual_insp_obj.ambient_temp_measure.type("6")
+      loc_visual_insp_obj.ambient_temp_yes_btn.click()
+      loc_visual_insp_obj.ambient_temp_pass_btn.click()
+      loc_visual_insp_obj.ambient_hum_sor.type("Site SOP{enter}")
+      loc_visual_insp_obj.ambient_hum_spec.type("5")
+      loc_visual_insp_obj.ambient_hum_measure.type("7")
+      loc_visual_insp_obj.ambient_hum_yes_btn.click()
+      loc_visual_insp_obj.ambient_hum_pass_btn.click()
+      loc_visual_insp_obj.next_btn.click()
+
+      loc_visual_insp_obj.pow_conn_utility_yes_btn.click()
+      loc_visual_insp_obj.pow_conn_utility_pass_btn.click()
+      loc_visual_insp_obj.chamber_temp_yes_btn.click()
+      loc_visual_insp_obj.chamber_temp_pass_btn.click()
       com_loc_obj.save_btn.click()
       com_loc_obj.success_msg.should('be.visible')
     })    
