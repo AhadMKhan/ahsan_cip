@@ -157,7 +157,7 @@ describe('Quality Agent Forms', () => {
     })    
   })
 
-  it.only('Fill Location And Visual Inspection form', () => {
+  it('Fill Location And Visual Inspection form', () => {
     cy.login_app()
     cy.fixture('./validation_id/id.json').then((id) => {
       home_page_obj.forms_opening_btn(id.validation_id)
