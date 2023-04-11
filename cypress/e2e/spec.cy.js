@@ -6,6 +6,7 @@ import common_forms_loc from "../POM/common_forms_loc.js"
 import system_ops_para from "../POM/system_ops_para.js"
 import inst_calib_ver from "../POM/inst_calib_ver.js"
 import sys_pre_main from "../POM/validation_forms/system_pre_main"
+import test_equip_mat from "../POM/test_equip_mat"
 
 const login_page_obj = new login_page()
 const home_page_obj = new home_page()
@@ -15,6 +16,7 @@ const com_loc_obj = new common_forms_loc()
 const sys_ops_para_obj = new system_ops_para()
 const inst_calib_ver_obj = new inst_calib_ver()
 const sys_pre_main_obj = new sys_pre_main()
+const test_equip_mat_obj = new test_equip_mat()
 
 import {
   validation_id_api
@@ -137,21 +139,17 @@ describe('Quality Agent Forms', () => {
     })    
   })
 
-  it.only('Fill Test Equipment And Materials form', () => {
+  it('Fill Test Equipment And Materials form', () => {
     cy.login_app()
     cy.fixture('./validation_id/id.json').then((id) => {
       home_page_obj.forms_opening_btn(id.validation_id)
     })
 
-    cy.fixture('./sys_pre_main_data.json').then((sys_pre_main_data) => {
-      sys_pre_main_obj.sys_pre_main_btn.click()
-      sys_pre_main_obj.pm_plan_yes_btn.click()
-      sys_pre_main_obj.pm_due_date.click().type(sys_pre_main_data.next_pm_due_date)
-      sys_pre_main_obj.pm_interval.type(sys_pre_main_data.pm_interval)
-      sys_pre_main_obj.pm_inter_unit.type(sys_pre_main_data.pm_inter_unit+"{enter}")
-      sys_pre_main_obj.pm_workplan_id.type(sys_pre_main_data.pm_workplan_id)
+    cy.fixture('./test_equip_mat_data.json').then((test_equip_mat_data) => {
+      test_equip_mat_obj.test_equip_mat_btn.click()
+      test_equip_mat_obj.select_equip.type(test_equip_mat_data.pharma_sensors+"{enter}")
       com_loc_obj.criteria_met_yes_btn.click()
-      com_loc_obj.comments.type(sys_pre_main_data.comments)   
+      com_loc_obj.comments.type(test_equip_mat_data.comments)   
       com_loc_obj.save_btn.click()
       com_loc_obj.success_msg.should('be.visible')
     })    
