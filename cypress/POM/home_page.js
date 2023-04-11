@@ -27,12 +27,6 @@ class home_page {
         cy.get('[data-row-key="'+form_id+'"]').click()
     }
 
-    get sys_spec_btn () {
-        return cy.get("[class='ant-card-body']").then((main_slider) => {
-            cy.wrap(main_slider).contains('System Specifications')
-        })
-    }
-
     get sys_ops_para_btn () {
         return cy.get("[class='ant-card-body']").then((main_slider) => {
             cy.wrap(main_slider).contains('System Operational Parameters Verification')
