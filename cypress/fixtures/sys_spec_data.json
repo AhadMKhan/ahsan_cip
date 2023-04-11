@@ -1,5 +1,5 @@
 {
     "location" : "10Pearls Karachi",
-    "rooms" : "3",
-    "comments" : "testing purpose"
+    "room" : "3",
+    "comments" : "Automation testing purpose"
 }

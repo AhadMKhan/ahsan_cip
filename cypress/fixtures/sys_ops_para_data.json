@@ -1,0 +1,5 @@
+{
+    "high_alram" : "25",
+    "low_alram" : "20",
+    "comments" : "System operational parameters verification automation testing."
+}
