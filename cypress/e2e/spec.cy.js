@@ -10,6 +10,7 @@ import test_equip_mat from "../POM/test_equip_mat"
 import loc_visual_insp from "../POM/validation_forms/loc_visual_insp"
 import utilities_verif from "../POM/validation_forms/utilities_verif"
 import alarm_test from "../POM/validation_forms/alarm_test"
+import calib_verf from "../POM/validation_forms/calib_verf"
 
 const login_page_obj = new login_page()
 const home_page_obj = new home_page()
@@ -23,6 +24,7 @@ const test_equip_mat_obj = new test_equip_mat()
 const loc_visual_insp_obj = new loc_visual_insp()
 const utilities_verif_obj = new utilities_verif()
 const alarm_test_obj = new alarm_test()
+const calib_verf_obj = new calib_verf()
 
 import {
   validation_id_api
@@ -281,6 +283,26 @@ describe('Quality Agent Forms', () => {
 
       com_loc_obj.criteria_met_yes_btn.click()
       com_loc_obj.comments.type(alarm_test_data.comments)   
+      com_loc_obj.save_btn.click()
+      com_loc_obj.success_msg.should('be.visible')
+    })    
+  })
+
+  it('Fill Calibration Verification form', () => {
+    cy.login_app()
+    cy.fixture('./validation_id/id.json').then((id) => {
+      home_page_obj.forms_opening_btn(id.validation_id)
+    })
+
+    cy.fixture('./calib_verf_data.json').then((calib_verf_data) => {
+      calib_verf_obj.calib_verf_btn.click()
+      calib_verf_obj.data_log_btn.click()
+      calib_verf_obj.chamber_size.type(calib_verf_data.rand_value)
+      calib_verf_obj.no_of_sensors.type(calib_verf_data.rand_value)
+      calib_verf_obj.ref_no_1_btn.click()
+      calib_verf_obj.ref_no_2_btn.click()
+      com_loc_obj.criteria_met_yes_btn.click()
+      com_loc_obj.comments.type(calib_verf_data.comments)   
       com_loc_obj.save_btn.click()
       com_loc_obj.success_msg.should('be.visible')
     })    
