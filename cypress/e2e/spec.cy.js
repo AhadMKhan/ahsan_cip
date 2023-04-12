@@ -9,6 +9,7 @@ import sys_pre_main from "../POM/validation_forms/system_pre_main"
 import test_equip_mat from "../POM/test_equip_mat"
 import loc_visual_insp from "../POM/validation_forms/loc_visual_insp"
 import utilities_verif from "../POM/validation_forms/utilities_verif"
+import alarm_test from "../POM/validation_forms/alarm_test"
 
 const login_page_obj = new login_page()
 const home_page_obj = new home_page()
@@ -21,6 +22,7 @@ const sys_pre_main_obj = new sys_pre_main()
 const test_equip_mat_obj = new test_equip_mat()
 const loc_visual_insp_obj = new loc_visual_insp()
 const utilities_verif_obj = new utilities_verif()
+const alarm_test_obj = new alarm_test()
 
 import {
   validation_id_api
@@ -33,7 +35,6 @@ import {
 describe('Quality Agent Forms', () => {
 
   beforeEach(() => {
-    cy.viewport(1240, 1000)
     cy.visit('/')
   })
 
@@ -165,7 +166,7 @@ describe('Quality Agent Forms', () => {
       home_page_obj.forms_opening_btn(id.validation_id)
     })
 
-    cy.fixture('./tloc_visual_insp_data.json').then((loc_vis_insp_data) => {
+    cy.fixture('./loc_visual_insp_data.json').then((loc_vis_insp_data) => {
       loc_visual_insp_obj.loc_visual_insp_btn.click()
       loc_visual_insp_obj.actual_1_no_btn.click()
       loc_visual_insp_obj.actual_pass_1_btn.click()
@@ -238,6 +239,48 @@ describe('Quality Agent Forms', () => {
       utilities_verif_obj.type_eme_pow.click()
       com_loc_obj.criteria_met_yes_btn.click()
       com_loc_obj.comments.type(uti_verif_data.comments)   
+      com_loc_obj.save_btn.click()
+      com_loc_obj.success_msg.should('be.visible')
+    })    
+  })
+  
+  it('Fill Alarm Testing form', () => {
+    cy.login_app()
+    cy.fixture('./validation_id/id.json').then((id) => {
+      home_page_obj.forms_opening_btn(id.validation_id)
+    })
+
+    cy.fixture('./alarm_test_data.json').then((alarm_test_data) => {
+      alarm_test_obj.alarm_test_btn.click()
+      alarm_test_obj.high_alarm_point.type(alarm_test_data.rand_value)
+      alarm_test_obj.high_curr_temp.type(alarm_test_data.rand_value)
+      alarm_test_obj.high_act_method.type(alarm_test_data.testing_method)
+      alarm_test_obj.high_alarm_trig_yes_btn.click()
+      alarm_test_obj.high_alarm_setpoint_left.type(alarm_test_data.rand_value)
+      alarm_test_obj.high_result_pass_btn.click()
+      alarm_test_obj.low_alarm_point.type(alarm_test_data.rand_value)
+      alarm_test_obj.low_curr_temp.type(alarm_test_data.rand_value)
+      alarm_test_obj.low_act_method.type(alarm_test_data.testing_method)
+      alarm_test_obj.low_alarm_trig_yes_btn.click()
+      alarm_test_obj.low_alarm_setpoint_left.type(alarm_test_data.rand_value)
+      alarm_test_obj.low_result_pass_btn.click()
+
+      alarm_test_obj.build_mont_sys.click()
+      alarm_test_obj.build_high_alarm_point.type(alarm_test_data.rand_value)      
+      alarm_test_obj.build_high_curr_temp.type(alarm_test_data.rand_value)
+      alarm_test_obj.build_high_act_method.type(alarm_test_data.testing_method)
+      alarm_test_obj.build_high_alarm_trig_btn.click()
+      alarm_test_obj.build_high_alarm_setpoint_left.type(alarm_test_data.rand_value)
+      alarm_test_obj.build_high_result_pass_btn.click()
+      alarm_test_obj.build_low_alarm_point.type(alarm_test_data.rand_value)
+      alarm_test_obj.build_low_curr_temp.type(alarm_test_data.rand_value)
+      alarm_test_obj.build_low_act_method.type(alarm_test_data.testing_method)
+      alarm_test_obj.build_low_alarm_trig_btn.click()
+      alarm_test_obj.build_low_alarm_setpoint_left.type(alarm_test_data.rand_value)
+      alarm_test_obj.build_low_result_pass_btn.click()
+
+      com_loc_obj.criteria_met_yes_btn.click()
+      com_loc_obj.comments.type(alarm_test_data.comments)   
       com_loc_obj.save_btn.click()
       com_loc_obj.success_msg.should('be.visible')
     })    
