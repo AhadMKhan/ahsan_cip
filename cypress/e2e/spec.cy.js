@@ -8,6 +8,7 @@ import inst_calib_ver from "../POM/inst_calib_ver.js"
 import sys_pre_main from "../POM/validation_forms/system_pre_main"
 import test_equip_mat from "../POM/test_equip_mat"
 import loc_visual_insp from "../POM/validation_forms/loc_visual_insp"
+import utilities_verif from "../POM/validation_forms/utilities_verif"
 
 const login_page_obj = new login_page()
 const home_page_obj = new home_page()
@@ -19,6 +20,7 @@ const inst_calib_ver_obj = new inst_calib_ver()
 const sys_pre_main_obj = new sys_pre_main()
 const test_equip_mat_obj = new test_equip_mat()
 const loc_visual_insp_obj = new loc_visual_insp()
+const utilities_verif_obj = new utilities_verif()
 
 import {
   validation_id_api
@@ -31,7 +33,7 @@ import {
 describe('Quality Agent Forms', () => {
 
   beforeEach(() => {
-    cy.viewport(1240, 800)
+    cy.viewport(1240, 1000)
     cy.visit('/')
   })
 
@@ -163,7 +165,7 @@ describe('Quality Agent Forms', () => {
       home_page_obj.forms_opening_btn(id.validation_id)
     })
 
-    cy.fixture('./test_equip_mat_data.json').then((test_equip_mat_data) => {
+    cy.fixture('./tloc_visual_insp_data.json').then((loc_vis_insp_data) => {
       loc_visual_insp_obj.loc_visual_insp_btn.click()
       loc_visual_insp_obj.actual_1_no_btn.click()
       loc_visual_insp_obj.actual_pass_1_btn.click()
@@ -174,35 +176,35 @@ describe('Quality Agent Forms', () => {
       loc_visual_insp_obj.actual_4_no_btn.click()
       loc_visual_insp_obj.acutal_pass_4_btn.click()
       com_loc_obj.criteria_met_yes_btn.click()
-      com_loc_obj.comments.type("Location And Visual Inspection automation testing")
+      com_loc_obj.comments.type(loc_vis_insp_data.comments)
       loc_visual_insp_obj.next_btn.click()
 
-      loc_visual_insp_obj.measure_unit.type("Feet{enter}")
-      loc_visual_insp_obj.manufacture_cubic.type("50")
+      loc_visual_insp_obj.measure_unit.type(loc_vis_insp_data.unit+"{enter}")
+      loc_visual_insp_obj.manufacture_cubic.type(loc_vis_insp_data.manf_cubic)
       loc_visual_insp_obj.exterior_btn.click()
       loc_visual_insp_obj.source_user_manual_btn.click()
-      loc_visual_insp_obj.unit_height.type("5")
-      loc_visual_insp_obj.unit_width.type("5")
-      loc_visual_insp_obj.unit_depth.type("5")
+      loc_visual_insp_obj.unit_height.type(loc_vis_insp_data.rand_value)
+      loc_visual_insp_obj.unit_width.type(loc_vis_insp_data.rand_value)
+      loc_visual_insp_obj.unit_depth.type(loc_vis_insp_data.rand_value)
       loc_visual_insp_obj.inter_dimen_yes_btn.click()
-      loc_visual_insp_obj.clear_left.type("4")
-      loc_visual_insp_obj.clear_right.type("4")
-      loc_visual_insp_obj.clear_top.type("4")
-      loc_visual_insp_obj.clear_rear.type("4")
+      loc_visual_insp_obj.clear_left.type(loc_vis_insp_data.rand_value)
+      loc_visual_insp_obj.clear_right.type(loc_vis_insp_data.rand_value)
+      loc_visual_insp_obj.clear_top.type(loc_vis_insp_data.rand_value)
+      loc_visual_insp_obj.clear_rear.type(loc_vis_insp_data.rand_value)
       loc_visual_insp_obj.spec_user_manual_btn.click()
       loc_visual_insp_obj.spec_user_man_pass_btn.click()
       loc_visual_insp_obj.door_open_90_yes_btn.click()
       loc_visual_insp_obj.door_90_pass_btn.click()
       loc_visual_insp_obj.next_btn.click()
 
-      loc_visual_insp_obj.ambient_temp_sor.type("Site SOP{enter}")
-      loc_visual_insp_obj.ambient_temp_spec.type("4")
-      loc_visual_insp_obj.ambient_temp_measure.type("6")
+      loc_visual_insp_obj.ambient_temp_sor.type(loc_vis_insp_data.source+"{enter}")
+      loc_visual_insp_obj.ambient_temp_spec.type(loc_vis_insp_data.rand_value)
+      loc_visual_insp_obj.ambient_temp_measure.type(loc_vis_insp_data.rand_value)
       loc_visual_insp_obj.ambient_temp_yes_btn.click()
       loc_visual_insp_obj.ambient_temp_pass_btn.click()
-      loc_visual_insp_obj.ambient_hum_sor.type("Site SOP{enter}")
-      loc_visual_insp_obj.ambient_hum_spec.type("5")
-      loc_visual_insp_obj.ambient_hum_measure.type("7")
+      loc_visual_insp_obj.ambient_hum_sor.type(loc_vis_insp_data.source+"{enter}")
+      loc_visual_insp_obj.ambient_hum_spec.type(loc_vis_insp_data.rand_value)
+      loc_visual_insp_obj.ambient_hum_measure.type(loc_vis_insp_data.rand_value)
       loc_visual_insp_obj.ambient_hum_yes_btn.click()
       loc_visual_insp_obj.ambient_hum_pass_btn.click()
       loc_visual_insp_obj.next_btn.click()
@@ -211,6 +213,31 @@ describe('Quality Agent Forms', () => {
       loc_visual_insp_obj.pow_conn_utility_pass_btn.click()
       loc_visual_insp_obj.chamber_temp_yes_btn.click()
       loc_visual_insp_obj.chamber_temp_pass_btn.click()
+      com_loc_obj.save_btn.click()
+      com_loc_obj.success_msg.should('be.visible')
+    })    
+  })
+
+  it('Fill Utilities Verification form', () => {
+    cy.login_app()
+    cy.fixture('./validation_id/id.json').then((id) => {
+      home_page_obj.forms_opening_btn(id.validation_id)
+    })
+
+    cy.fixture('./utilities_verif_data.json').then((uti_verif_data) => {
+      utilities_verif_obj.utilities_verif_btn.click()
+      utilities_verif_obj.amperage.type(uti_verif_data.amperage_value)
+      utilities_verif_obj.voltage_req.type(uti_verif_data.volt_req)
+      utilities_verif_obj.voltage_measure.type(uti_verif_data.volt_measure)
+      utilities_verif_obj.amp_measure.type(uti_verif_data.volt_measure)
+      utilities_verif_obj.breaker_info.type(uti_verif_data.breaker_count)
+      utilities_verif_obj.breaker_size.type(uti_verif_data.break_size)
+      utilities_verif_obj.elec_pannel_no.type(uti_verif_data.pannel_num)
+      utilities_verif_obj.elec_pan_loc.type(uti_verif_data.pannel_loc)
+      utilities_verif_obj.eme_pow.click()
+      utilities_verif_obj.type_eme_pow.click()
+      com_loc_obj.criteria_met_yes_btn.click()
+      com_loc_obj.comments.type(uti_verif_data.comments)   
       com_loc_obj.save_btn.click()
       com_loc_obj.success_msg.should('be.visible')
     })    

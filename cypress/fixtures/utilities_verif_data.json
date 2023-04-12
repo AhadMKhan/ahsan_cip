@@ -1,0 +1,10 @@
+{
+    "amperage_value" : "Testing 001",
+    "volt_req" : "240",
+    "volt_measure" : "Kilo Watt",
+    "breaker_count" : "5",
+    "break_size" : "700",
+    "pannel_num" : "EPN-001",
+    "pannel_loc" : "Basement",
+    "comments" : "Utilities Verification automation testing."
+}
