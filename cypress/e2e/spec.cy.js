@@ -11,6 +11,7 @@ import loc_visual_insp from "../POM/validation_forms/loc_visual_insp"
 import utilities_verif from "../POM/validation_forms/utilities_verif"
 import alarm_test from "../POM/validation_forms/alarm_test"
 import calib_verf from "../POM/validation_forms/calib_verf"
+import sen_plac_dia from "../POM/validation_forms/sen_plac_dia"
 
 const login_page_obj = new login_page()
 const home_page_obj = new home_page()
@@ -25,6 +26,7 @@ const loc_visual_insp_obj = new loc_visual_insp()
 const utilities_verif_obj = new utilities_verif()
 const alarm_test_obj = new alarm_test()
 const calib_verf_obj = new calib_verf()
+const sensor_plac_obj = new sen_plac_dia()
 
 import {
   validation_id_api
@@ -37,6 +39,7 @@ import {
 describe('Quality Agent Forms', () => {
 
   beforeEach(() => {
+    cy.viewport(1200, 800)
     cy.visit('/')
   })
 
@@ -305,6 +308,29 @@ describe('Quality Agent Forms', () => {
       com_loc_obj.comments.type(calib_verf_data.comments)   
       com_loc_obj.save_btn.click()
       com_loc_obj.success_msg.should('be.visible')
+    })    
+  })
+
+  it.only('Fill Sensor Placement Diagram form', () => {
+    cy.login_app()
+    cy.fixture('./validation_id/id.json').then((id) => {
+      home_page_obj.forms_opening_btn(id.validation_id)
+    })
+
+    cy.fixture('./calib_verf_data.json').then((calib_verf_data) => {
+      sensor_plac_obj.sen_plac_btn.click()
+      sensor_plac_obj.sen_room_no.type('233')
+      sensor_plac_obj.sen_data_log_btn.click()
+      sensor_plac_obj.sen_single_door_btn.click()
+      sensor_plac_obj.sen_no_of_shelf.type('04{enter}')
+      sensor_plac_obj.sen_overall_sensors.type('02{enter}')
+      sensor_plac_obj.sen_data_image.click(120, 200)
+      sensor_plac_obj.sen_data_image.click(120, 375)
+
+      // com_loc_obj.criteria_met_yes_btn.click()
+      // com_loc_obj.comments.type(calib_verf_data.comments)   
+      // com_loc_obj.save_btn.click()
+      // com_loc_obj.success_msg.should('be.visible')
     })    
   })
 })

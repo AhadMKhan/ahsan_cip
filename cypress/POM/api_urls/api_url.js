@@ -1,1 +1,1 @@
-export const validation_id_api = 'https://qualityagent-dev.azurewebsites.net/qualityagent/api/v1/Validation/Create'
+export const validation_id_api = 'https://qulaityagents-qa.azurewebsites.net/qualityagent/api/v1/Validation/Create'
