@@ -311,26 +311,35 @@ describe('Quality Agent Forms', () => {
     })    
   })
 
-  it.only('Fill Sensor Placement Diagram form', () => {
+  it('Fill Sensor Placement Diagram form', () => {
     cy.login_app()
     cy.fixture('./validation_id/id.json').then((id) => {
       home_page_obj.forms_opening_btn(id.validation_id)
     })
 
-    cy.fixture('./calib_verf_data.json').then((calib_verf_data) => {
+    cy.fixture('./sen_plac_dia_data.json').then((sen_plac_data) => {
       sensor_plac_obj.sen_plac_btn.click()
-      sensor_plac_obj.sen_room_no.type('233')
+      sensor_plac_obj.sen_room_no.type(sen_plac_data.room_no)
       sensor_plac_obj.sen_data_log_btn.click()
       sensor_plac_obj.sen_single_door_btn.click()
-      sensor_plac_obj.sen_no_of_shelf.type('04{enter}')
-      sensor_plac_obj.sen_overall_sensors.type('02{enter}')
+      sensor_plac_obj.sen_no_of_shelf.type(sen_plac_data.no_of_shelf+'{enter}')
+      sensor_plac_obj.sen_overall_sensors.type(sen_plac_data.overall_sensors+'{enter}')
       sensor_plac_obj.sen_data_image.click(120, 200)
       sensor_plac_obj.sen_data_image.click(120, 375)
-
-      // com_loc_obj.criteria_met_yes_btn.click()
-      // com_loc_obj.comments.type(calib_verf_data.comments)   
-      // com_loc_obj.save_btn.click()
-      // com_loc_obj.success_msg.should('be.visible')
+      sensor_plac_obj.sen_marker_1.click()
+      sensor_plac_obj.sen_probe_adj_loc.type(sen_plac_data.adj_control_probe+'{enter}')
+      sensor_plac_obj.sen_actual_loc.type(sen_plac_data.back_left_loc+'{enter}')
+      sensor_plac_obj.sen_comment.type(sen_plac_data.marker_1_comment)
+      sensor_plac_obj.sen_update_com_btn.click()
+      sensor_plac_obj.sen_marker_2.click()
+      sensor_plac_obj.sen_probe_adj_loc.type(sen_plac_data.adj_monitor_probe+'{enter}')
+      sensor_plac_obj.sen_actual_loc.type(sen_plac_data.back_right_loc+'{enter}')
+      sensor_plac_obj.sen_comment.type(sen_plac_data.marker_2_comment)
+      sensor_plac_obj.sen_update_com_btn.click()
+      com_loc_obj.criteria_met_yes_btn.click()
+      com_loc_obj.comments.type(sen_plac_data.comments)   
+      com_loc_obj.save_btn.click()
+      com_loc_obj.success_msg.should('be.visible')
     })    
   })
 })

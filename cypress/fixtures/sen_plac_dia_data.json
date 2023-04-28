@@ -1,0 +1,12 @@
+{
+    "room_no" : "233",
+    "no_of_shelf" : "04",
+    "overall_sensors" : "02",
+    "adj_control_probe" : "Adjecent To Control Probes",
+    "back_left_loc" : "Back Left",
+    "marker_1_comment" : "Sensor marker 1 comment by automation",
+    "adj_monitor_probe" : "Adjecent To Monitoring Probes",
+    "back_right_loc" : "Back Right",
+    "marker_2_comment" : "Sensor marker 2 comment by automation",
+    "comments" : "sensor placement diagram by automation"
+}

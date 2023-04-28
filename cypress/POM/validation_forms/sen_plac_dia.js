@@ -27,5 +27,29 @@ class sen_plac_dia {
         return cy.get('.image-marker__image')
     }
 
+    get sen_marker_1 () {
+        return cy.get('[data-testid="image-marker-0"]')
+    }
+
+    get sen_marker_2 () {
+        return cy.get('[data-testid="image-marker-1"]')
+    }
+
+    get sen_probe_adj_loc () {
+        return cy.get('[data-testid="Select-Field-probe"]')
+    }
+
+    get sen_actual_loc () {
+        return cy.get('[data-testid="Select-Field-location"]')
+    }
+
+    get sen_comment () {
+        return cy.get('[data-testid="Input-Field-comment"]')
+    }
+
+    get sen_update_com_btn () {
+        return cy.contains('Update Comments')
+    }
+
 }
 export default sen_plac_dia
