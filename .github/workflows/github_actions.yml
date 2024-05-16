@@ -15,4 +15,4 @@ jobs:
           git clone https://github.com/AhadMKhan/ahsan_cip.git cypress-project
           cd cypress-project
           npm install
-          npx cypress run
+          npx cypress run --headless --reporter mochawesome
