@@ -22,7 +22,7 @@ jobs:
 
       - name: Clone Repository
         run: |
-          git clone https://github.com/your-username/your-repo.git cypress-project
+          git clone https://github.com/AhadMKhan/ahsan_cip.git
           echo "Cloned repository successfully"
 
       - name: Install Dependencies
