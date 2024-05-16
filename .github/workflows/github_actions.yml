@@ -1,0 +1,35 @@
+name: Cypress Build and Test
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name as needed
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # Choose the appropriate runner
+
+    steps:
+      - name: Delete Old Repository
+        run: |
+          rm -rf cypress-project || true
+          echo "Deleted existing repository"
+
+      - name: Create Directory
+        run: |
+          mkdir cypress-project || true
+          echo "Created directory 'cypress-project'"
+
+      - name: Clone Repository
+        run: |
+          git clone https://github.com/your-username/your-repo.git cypress-project
+          echo "Cloned repository successfully"
+
+      - name: Install Dependencies
+        run: |
+          cd cypress-project
+          npm install
+
+      - name: Run Cypress Tests
+        run: |
+          npm test  # Assuming you have a script named "test" in your package.json file
